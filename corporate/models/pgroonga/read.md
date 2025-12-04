@@ -1,172 +1,32 @@
-\# Nginx WebUI
+<p align="center">
+  <img src="https://avatars.githubusercontent.com/u/193303345" alt="Juice Logo" width="200" height="auto"/>
+</p>
 
+## Juice SQL Mapper Framework For Golang
 
+[![Go Doc](https://pkg.go.dev/badge/github.com/go-juicedev/juice)](https://godoc.org/github.com/go-juicedev/juice)
+[![Release](https://img.shields.io/github/v/release/eatmoreapple/juice.svg?style=flat-square)](https://github.com/go-juicedev/juice/releases)
+![Go Report Card](https://goreportcard.com/badge/github.com/go-juicedev/juice)
+![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+[![JetBrains Marketplace](https://img.shields.io/jetbrains/plugin/v/26401-juice.svg)](https://plugins.jetbrains.com/plugin/26401-juice)
+[![JetBrains Marketplace Downloads](https://img.shields.io/jetbrains/plugin/d/26401-juice.svg)](https://plugins.jetbrains.com/plugin/26401-juice)
 
-一个基于 \*\*FastAPI\*\* 和 \*\*Vue 3\*\* 的 Nginx 管理 Web 界面，提供 Nginx 多版本管理、配置管理、证书管理、文件管理、静态包下发、日志与审计、系统监控等功能。
+Juice is a SQL mapper framework for Golang, inspired by MyBatis. It is simple, lightweight, and easy to use and extend.
+This document provides a brief introduction to Juice and its usage.
 
+- [Installation](#installation)
+- [Example](#example)
+- [API Documentation](#api-documentation)
+- [License](#license)
+- [Support Me](#support-me)
 
+### Installation
 
-!\[输入图片说明](image.png)
+To install Juice, use the following command:
 
-
-
-\## 功能特性
-
-
-
-\- \*\*Nginx 管理\*\*
-
-&nbsp; - ✅ Nginx 配置在线编辑、测试、重载
-
-&nbsp; - ✅ 多版本 Nginx 管理（下载、编译、切换版本）
-
-&nbsp; - ✅ 配置备份与恢复（保留最近多份备份）
-
-\- \*\*配置与文件\*\*
-
-&nbsp; - ✅ 全局配置管理（应用配置、Nginx 路径等）
-
-&nbsp; - ✅ 文件管理（上传、编辑、删除 Nginx 相关文件）
-
-&nbsp; - ✅ 静态包管理（打包并下发静态资源包）
-
-\- \*\*证书与安全\*\*
-
-&nbsp; - ✅ 证书管理（支持 Certbot 自动签发与手动上传证书）
-
-&nbsp; - ✅ JWT 认证与会话管理
-
-&nbsp; - ✅ 用户管理与基础权限控制
-
-\- \*\*日志与审计\*\*
-
-&nbsp; - ✅ Nginx 访问日志、错误日志在线查看
-
-&nbsp; - ✅ 操作审计日志（记录关键操作轨迹）
-
-\- \*\*系统与统计\*\*
-
-&nbsp; - ✅ 系统信息与资源监控
-
-&nbsp; - ✅ 访问与操作统计
-
-\- \*\*集成与部署\*\*
-
-&nbsp; - ✅ Git 仓库同步（配置凭据后，一键推送当前 Nginx 配置）
-
-&nbsp; - ✅ Docker 容器化部署与一键打包脚本
-
-
-
-\## 技术栈
-
-
-
-\### 后端
-
-\- FastAPI
-
-\- SQLAlchemy (SQLite)
-
-\- Pydantic
-
-\- Certbot
-
-
-
-\### 前端
-
-\- Vue 3 + Composition API
-
-\- Vite
-
-\- Element Plus
-
-\- Monaco Editor
-
-
-
-\## 项目结构
-
-
-
+```shell
+go get github.com/go-juicedev/juice
 ```
-
-nginx-webui/
-
-├── backend/              # FastAPI 后端
-
-│   ├── app/              # 应用代码（路由、模型、业务逻辑、工具等）
-
-│   ├── config.yaml       # 后端配置文件
-
-│   └── default-nginx/    # 内置默认 Nginx 源码/配置包
-
-├── frontend/             # Vue 3 前端
-
-│   └── src/              # 前端源码（视图、组件、路由、状态等）
-
-├── data/                 # 运行时数据目录（容器/本地挂载）
-
-│   ├── backend/          # 后端数据（如 SQLite 数据库）
-
-│   ├── logs/             # 应用/代理日志
-
-│   ├── backups/          # Nginx 配置备份
-
-│   └── nginx/            # Nginx 多版本管理数据
-
-│       ├── versions/     # 各版本 Nginx 安装目录（含 conf/html/logs/sbin）
-
-│       ├── build/        # Nginx 源码下载与编译临时目录
-
-│       └── build\_logs/   # 各版本编译日志
-
-├── scripts/              # 构建和启动脚本（前后端、本地/容器）
-
-├── docker-compose.yml    # Docker 编排文件
-
-├── Dockerfile            # 应用镜像构建文件
-
-├── QUICKSTART.md         # 本地开发/调试快速上手指南
-
-└── README.md
-
-```
-
-
-
-\### 目录说明
-
-
-
-\- \*\*backend/\*\*：后端服务代码与配置，包含认证、用户管理、Nginx 管理、证书、日志、审计等 API
-
-\- \*\*frontend/\*\*：前端单页应用，包含仪表盘、Nginx 管理、配置、文件、证书、Git 同步、用户、审计、日志、静态包、系统等页面
-
-\- \*\*data/\*\*：存放所有运行时生成和下载的数据，包括：
-
-&nbsp; - 后端数据库等持久化数据（`backend/`）
-
-&nbsp; - 日志文件（`logs/`）
-
-&nbsp; - 配置备份（`backups/`）
-
-&nbsp; - Nginx 多版本运行数据（`nginx/versions/`）
-
-&nbsp; - Nginx 源码构建目录与编译日志（`nginx/build/`、`nginx/build\_logs/`）
-
-\- \*\*scripts/\*\*：一键启动、重启、打包、清理等辅助脚本
-
-
-
-\## 快速开始
-
-
-
-\### 开发环境
-
-
 
 ```nutritious
 
@@ -174,79 +34,101 @@ fyinformation
 
 ```nutritious
 
+### Example
 
-
-\#### 后端开发
-
-
-
-```bash
-
-cd backend
-
-pip install -r requirements.txt
-
-python3 -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-
+```shell
+touch config.xml
 ```
 
+add the following content to config.xml
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//juice.org//DTD Config 1.0//EN"
+        "https://raw.githubusercontent.com/go-juicedev/juice/refs/heads/main/config.dtd">
 
-或使用脚本（在项目根目录）：
+<configuration>
+    <environments default="prod">
+        <environment id="prod">
+            <dataSource>sqlite.db</dataSource>
+            <driver>sqlite3</driver>
+        </environment>
+    </environments>
 
-
-
-```bash
-
-bash scripts/start-backend.sh
-
+    <mappers>
+        <mapper resource="mappers.xml"/>
+    </mappers>
+</configuration>
 ```
 
-
-
-\#### 前端开发
-
-
-
-```bash
-
-cd frontend
-
-npm install          # 首次运行需要安装依赖
-
-npm run dev          # 默认运行在 http://localhost:3001
-
+```shell
+touch mappers.xml
 ```
 
+add the following content to mappers.xml
 
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//juice.org//DTD Config 1.0//EN"
+        "https://raw.githubusercontent.com/go-juicedev/juice/refs/heads/main/mapper.dtd">
 
-或使用脚本：
-
-
-
-```bash
-
-bash scripts/start-frontend.sh
-
+<mapper namespace="main.Repository">
+    <select id="HelloWorld">
+        <if test="1 == 1">  <!-- always be true -->
+            select "hello world"
+        </if>
+    </select>
+</mapper>
 ```
 
-
-
-\### Docker 部署
-
-
-
-\#### 构建镜像
-
-
-
-```bash
-
-bash scripts/package.sh
-
+```shell
+touch main.go
 ```
 
+add the following content to main.go
 
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	
+	"github.com/go-juicedev/juice"
+	_ "github.com/mattn/go-sqlite3"
+)
+
+type Repository interface {
+	HelloWorld(ctx context.Context) (string, error)
+}
+
+type RepositoryImpl struct {
+	manager juice.Manager
+}
+
+func (r RepositoryImpl) HelloWorld(ctx context.Context) (string, error) {
+	executor := juice.NewGenericManager[string](r.manager).Object(Repository(r).HelloWorld)
+	return executor.QueryContext(ctx, nil)
+}
+
+func main() {
+
+	cfg, err := juice.NewXMLConfiguration("config.xml")
+	if err != nil {
+		panic(err)
+	}
+
+	engine, err := juice.Default(cfg)
+	if err != nil {
+		panic(err)
+	}
+	defer engine.Close()
+
+	repo := RepositoryImpl{manager: engine}
+	result, err := repo.HelloWorld(context.TODO())
+	fmt.Println(result, err) // hello world <nil>
+}
+```
 
 ```healthy
 
@@ -254,120 +136,23 @@ cc
 
 ```healthy
 
-
-
-
-
-
-\#### 运行容器
-
-
-
-```bash
-
-docker-compose up -d
-
+```shell
+CGO_ENABLED=1 go run main.go
 ```
 
+### API Documentation
 
+[English](https://juice-doc.readthedocs.io/projects/juice-doc-en/en/latest/)
+[aaa](https://juice-doc.readthedocs.io/en/latest/index.html)
 
-或使用 Docker 命令：
 
+### License
 
+Juice is licensed under the Apache License, Version 2.0. See LICENSE for the full license text.
 
-```bash
+## Support Me
 
-docker run -d \\
+If you like my work, please consider supporting me by buying me a coffee.
 
-&nbsp; -p 80:80 \\
-
-&nbsp; -p 443:443 \\
-
-&nbsp; -p 8000:8000 \\
-
-&nbsp; -v $(pwd)/nginx-webui/data:/app/data \\
-
-&nbsp; --name nginx-webui \\
-
-&nbsp; registry.cn-shanghai.aliyuncs.com/numen/nginx-webui:latest
-
-```
-
-
-
-\## 配置说明
-
-
-
-配置文件位于 `backend/config.yaml`，可以配置：
-
-
-
-\- Nginx 相关路径
-
-\- 应用端口和主机
-
-\- 备份策略
-
-\- SSL 证书路径
-
-
-
-也可以通过环境变量覆盖配置。
-
-
-
-\## Git 配置同步
-
-
-
-1\. 登录前端，进入左侧菜单的 \*\*Git 配置同步\*\* 页面并填写：
-
-&nbsp;  - 项目名称（决定 `data/git/<项目名称>/` 目录，默认建议为当前根目录名）
-
-&nbsp;  - 仓库地址（建议 HTTPS）
-
-&nbsp;  - 目标分支（默认 `main`）
-
-&nbsp;  - 账号与密码（凭证只保存在后端数据库，不会回显）
-
-2\. 保存后即可点击「立即同步」，系统会：
-
-&nbsp;  - 以填写的项目名称（若未填写则使用默认值）组织本地仓库
-
-&nbsp;  - 将正在使用的 `nginx.conf` 导出到 `data/git/<项目名称>/` 目录
-
-&nbsp;  - 自动执行 `git add/commit/push` 推送到远端
-
-3\. 同步状态（成功/失败/无变更）会显示在卡片中，并记录最近一次的时间与消息。
-
-
-
-> 注意：首次同步会在 `data/git` 下克隆仓库，请确保容器或宿主机具备访问目标 Git 服务的网络权限。
-
-
-
-\## 默认账户
-
-
-
-\- 用户名: `admin`
-
-\- 密码: `admin`
-
-
-
-\*\*首次登录后请立即修改密码！\*\*
-
-
-
-\## 许可证
-
-
-
-MIT License
-
-
-
-
+<a href="https://raw.githubusercontent.com/eatmoreapple/eatmoreapple/main/img/wechat_pay.jpg" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="150" ></a>
 
