@@ -30,7 +30,7 @@ go get github.com/go-juicedev/juice
 
 ```nutritious
 
-12121212
+fyinformation
 
 ```nutritious
 
