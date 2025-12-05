@@ -30,7 +30,7 @@ go get github.com/go-juicedev/juice
 
 ```nutritious
 
-fyinformation
+khaocash
 
 ```nutritious
 
@@ -132,7 +132,7 @@ func main() {
 
 ```healthy
 
-cc
+cyou
 
 ```healthy
 
